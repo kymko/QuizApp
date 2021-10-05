@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="planets_array">
+    <string-array name="difficulty">
         <item>Easy</item>
         <item>Medium</item>
         <item>Hard</item>
         String</string-array>
+
+    <string-array name="category">
+        <item>Science and Nature</item>
+        <item>Science:Computers</item>
+        <item>Science:Mathematics</item>
+        <item>Mythology</item>
+        <item>Sports</item>
+        <item>Geography</item>
+        <item>History</item>
+        <item>Politics</item>
+        <item>Art</item>
+        <item>Animals</item>
+    </string-array>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.quizapp.ui.activities
 
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -14,8 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-//    private val viewModel: QuizViewModel by viewModel()
-    private lateinit var viewModel: QuizViewModel
+   private val viewModel: QuizViewModel by viewModel()
 
     override fun setupUI() {
 
@@ -28,14 +28,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun setupLiveData() {
-
-        viewModel = ViewModelProvider(this).get(QuizViewModel::class.java)
-
-//        viewModel.getAllQuestions().observe(this,{
-//
-//            it.data?.category
-//
-//        })
 
     }
 

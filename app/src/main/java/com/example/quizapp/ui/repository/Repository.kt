@@ -12,10 +12,10 @@ class Repository {
 
     private var quizApi: QuizApi = RetrofitClient.create()
 
-    fun getAllQuestions(): LiveData<Resource<QuizResponse.Result>> = liveData(Dispatchers.IO) {
+    fun getAllQuestions(amount:Int,category:Int,difficulty:String): LiveData<Resource<QuizResponse>> = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
 
-        val response = quizApi.getQuestions(10, 27, "easy")
+        val response = quizApi.getQuestions(amount, category, difficulty)
 
         emit(
             if (response.isSuccessful)

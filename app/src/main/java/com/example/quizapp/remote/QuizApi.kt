@@ -12,6 +12,7 @@ interface QuizApi {
         @Query("amount") amount: Int,
         @Query("category") category: Int,
         @Query("difficulty") difficulty: String
-    ): Response<QuizResponse.Result>
+    ): Response<QuizResponse>
 
 }
+//https://opentdb.com/api.php?amount=10&category=23&difficulty=medium
