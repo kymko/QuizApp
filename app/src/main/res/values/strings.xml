@@ -12,4 +12,5 @@
     <string name="rate_us">Rate us</string>
     <string name="leave_feedback">Leave feedback</string>
     <string name="clear_history">Clear history</string>
+    <string name="skip">Skip</string>
 </resources>

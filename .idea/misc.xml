@@ -4,10 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/user/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/QuizApp/app/src/main/res/drawable/bg_btn_correct.xml" value="0.2703125" />
         <entry key="..\:/Users/user/QuizApp/app/src/main/res/drawable/bg_btn_rounded.xml" value="0.2703125" />
+        <entry key="..\:/Users/user/QuizApp/app/src/main/res/drawable/bg_btn_second.xml" value="0.2703125" />
+        <entry key="..\:/Users/user/QuizApp/app/src/main/res/drawable/bg_btn_skip.xml" value="0.2703125" />
+        <entry key="..\:/Users/user/QuizApp/app/src/main/res/drawable/bg_btn_third.xml" value="0.28229166666666666" />
         <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/fragment_game.xml" value="0.264" />
         <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/fragment_history.xml" value="0.264" />
-        <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/fragment_quiz.xml" value="0.264" />
+        <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/fragment_quiz.xml" value="0.176" />
         <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/fragment_settings.xml" value="0.264" />
         <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/list_history.xml" value="0.5224913494809689" />
         <entry key="..\:/Users/user/QuizApp/app/src/main/res/layout/toolbar.xml" value="0.25416666666666665" />

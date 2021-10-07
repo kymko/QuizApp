@@ -1,11 +1,7 @@
 package com.example.quizapp.ui.activities
 
-import android.util.Log
 import android.view.LayoutInflater
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.quizapp.R
 import com.example.quizapp.core.ui.BaseActivity
@@ -15,7 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-   private val viewModel: QuizViewModel by viewModel()
+    private val viewModel: QuizViewModel by viewModel()
 
     override fun setupUI() {
 
@@ -36,7 +32,3 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 }
 
-//дз 1
-//Добавить BottomNav, связать с основным ViewPager-ом или сделать отдельными фрагментами
-//Изменить иконку приложения
-//прописать клики на нажатия элементов Bottom navigation

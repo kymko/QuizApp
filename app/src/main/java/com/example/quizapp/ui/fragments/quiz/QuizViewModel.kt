@@ -8,8 +8,8 @@ import com.example.youtubeapi.core.network.Resource
 
 class QuizViewModel(private val repository:Repository) : ViewModel() {
 
-    fun getAllQuestions(amount:Int,category: Int,difficulty:String):LiveData<Resource<QuizResponse>>{
-        return repository.getAllQuestions(amount,category,difficulty)
+    fun getAllQuestions(amount:Int,category: Int,difficulty:String,type:String):LiveData<Resource<QuizResponse>>{
+        return repository.getAllQuestions(amount,category,difficulty,type)
     }
 
 }

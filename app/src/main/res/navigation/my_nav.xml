@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.example.quizapp.ui.fragments.quiz.QuizFragment"
-        android:label="QuizFragment" />
+        android:label="QuizFragment" >
+        <action
+            android:id="@+id/action_quizFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.quizapp.ui.fragments.history.HistoryFragment"
@@ -16,4 +20,8 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.quizapp.ui.fragments.settings.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.quizapp.ui.fragments.game.GameFragment"
+        android:label="GameFragment" />
 </navigation>

@@ -1,118 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="18dp"
-    android:background="#D2CFCF">
+    android:background="#D2CFCF"
+    tools:ignore="RtlSymmetry">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_illustration"
-        android:layout_width="60dp"
-        android:layout_height="85dp"
-        android:layout_below="@+id/toolbar"
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/ic_src" />
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_question_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_illustration"
-        android:layout_marginTop="@dimen/top_44sp"
-        android:text="@string/questions_amount"
-        style="@style/text_quiz"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_illustration"
-        android:layout_marginStart="8sp"
-        android:layout_marginTop="42sp"
-        android:layout_toEndOf="@+id/tv_question_amount"
-        android:text="10"
-        android:textColor="#3F3356"
-        android:textSize="15sp" />
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/slider"
+    <RelativeLayout
+        android:id="@+id/game_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_question_amount"
-        android:layout_marginStart="@dimen/start_64dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="@dimen/start_64dp" />
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/slider"
-        android:layout_marginTop="8sp"
-        style="@style/text_quiz"
-        android:text="@string/category" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_arrow_back" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_container_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_category"
-        android:layout_marginStart="@dimen/start_64dp"
-        android:layout_marginEnd="@dimen/start_64dp"
-        android:background="@color/white"
-        app:cardCornerRadius="8dp">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_header_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30sp"
+            tools:text="Geography"
+            android:textColor="#1A051D"
+            android:textSize="18sp"
+            app:fontFamily="sans-serif-medium" />
 
-        <Spinner
-            android:id="@+id/spinner"
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_count"
             android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_header_category"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="100dp"
+            android:stepSize="1"
+            android:value="1"
+            android:valueFrom="1"
+            android:valueTo="10"
+            app:trackHeight="6dp" />
 
-    </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/slider_count"
+            android:layout_marginStart="81sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="81sp"
+            android:fontFamily="sans-serif-medium"
+            tools:text="What is the largest city and commercial capital of Sri Lanka?"
+            android:textColor="#1A051D"
+            android:textSize="22sp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_difficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cardView_container_spinner"
-        android:layout_marginTop="8sp"
-        style="@style/text_quiz"
-        android:text="@string/difficulty"
-        />
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_container_spinner_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_difficulty"
-        android:layout_marginStart="@dimen/start_64dp"
-        android:layout_marginEnd="@dimen/start_64dp"
-        android:background="@color/white"
-        app:cardCornerRadius="8dp">
-
-        <Spinner
-            android:id="@+id/spinner_2"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_first"
             android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_question"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_btn_rounded"
+            tools:text="Colombo"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
-    </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_first"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_btn_second"
+            tools:text="Colombo"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_start"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_third"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_second"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_btn_third"
+            tools:text="Colombo"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_fourth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_third"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_btn_correct"
+            tools:text="Colombo"
+            android:textAllCaps="false"
+            android:textColor="#6979F8" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_fourth"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/bg_btn_skip"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/skip"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cardView_container_spinner_2"
-        android:layout_marginStart="@dimen/start_64dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="@dimen/start_64dp"
-        android:background="@drawable/bg_btn_rounded"
-        android:text="@string/start"
-        android:textColor="@color/white" />
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_illustration"
+            android:layout_width="60dp"
+            android:layout_height="85dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_src" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_question_amount"
+            style="@style/text_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_illustration"
+            android:layout_marginTop="@dimen/top_44sp"
+            android:text="@string/questions_amount" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_illustration"
+            android:layout_marginStart="8sp"
+            android:layout_marginTop="42sp"
+            android:layout_toEndOf="@+id/tv_question_amount"
+            tools:text="10"
+            android:textColor="#3F3356"
+            android:textSize="15sp" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_question_amount"
+            android:layout_marginStart="@dimen/start_64dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/start_64dp"
+            android:stepSize="1"
+            android:value="5"
+            android:valueFrom="1"
+            android:valueTo="10"
+            app:thumbColor="#BE52F2"
+            app:trackColor="#BE52F2"
+            app:trackColorInactive="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_category"
+            style="@style/text_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/slider"
+            android:layout_marginTop="8sp"
+            android:text="@string/category" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_container_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_category"
+            android:layout_marginStart="@dimen/start_64dp"
+            android:layout_marginEnd="@dimen/start_64dp"
+            android:background="@color/white"
+            app:cardCornerRadius="8dp">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_difficulty"
+            style="@style/text_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardView_container_spinner"
+            android:layout_marginTop="8sp"
+            android:text="@string/difficulty" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_container_spinner_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_difficulty"
+            android:layout_marginStart="@dimen/start_64dp"
+            android:layout_marginEnd="@dimen/start_64dp"
+            android:background="@color/white"
+            app:cardCornerRadius="8dp">
+
+            <Spinner
+                android:id="@+id/spinner_2"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardView_container_spinner_2"
+            android:layout_marginStart="@dimen/start_64dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="@dimen/start_64dp"
+            android:background="@drawable/bg_btn_rounded"
+            android:text="@string/start"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
