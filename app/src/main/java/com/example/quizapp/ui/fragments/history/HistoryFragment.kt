@@ -1,31 +1,22 @@
 package com.example.quizapp.ui.fragments.history
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.quizapp.R
+import com.example.quizapp.core.ui.BaseFragment
 import com.example.quizapp.databinding.FragmentHistoryBinding
+import com.example.quizapp.ui.fragments.quiz.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {
 
-    private lateinit var binding: FragmentHistoryBinding
+    override val viewModel: MainViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHistoryBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.toolbar.toolbarTitle.text = getString(R.string.history)
+    override fun setupLiveData() {
 
     }
+
+    override fun setupUI() {
+
+    }
+
 
 }

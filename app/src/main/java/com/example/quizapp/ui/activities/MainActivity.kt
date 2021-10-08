@@ -1,19 +1,16 @@
 package com.example.quizapp.ui.activities
 
 import android.view.LayoutInflater
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.core.ui.base.BaseViewModel
 import com.example.quizapp.R
 import com.example.quizapp.core.ui.BaseActivity
 import com.example.quizapp.databinding.ActivityMainBinding
-import com.example.quizapp.ui.fragments.quiz.QuizViewModel
+import com.example.quizapp.ui.fragments.quiz.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
-
-   // private val viewModel: QuizViewModel by viewModel()
-    lateinit var viewModel: QuizViewModel
+class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(MainViewModel::class.java) {
 
     override fun setupUI() {
 
@@ -27,7 +24,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun setupLiveData() {
 
-        viewModel = ViewModelProvider(this).get(QuizViewModel::class.java)
     }
 
     override fun inflateBinding(from: LayoutInflater): ActivityMainBinding {
