@@ -8,8 +8,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.quizapp.R
 import com.example.quizapp.databinding.FragmentQuizBinding
+import com.example.quizapp.ui.activities.MainActivity
+import com.example.quizapp.ui.repository.Repository
 import com.example.youtubeapi.core.network.Status
 import com.google.android.material.slider.Slider
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,7 +22,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class QuizFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentQuizBinding
-    private val viewModel: QuizViewModel by viewModel()
+    //private val viewModel: QuizViewModel by viewModel()
+    private lateinit var viewModel: QuizViewModel
     private var category: Int = 0
     private var amount: Int = 0
     private var difficulty: String = ""
@@ -46,6 +52,8 @@ class QuizFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity(), defaultViewModelProviderFactory).get(QuizViewModel::class.java)
 
         ArrayAdapter.createFromResource(
             requireContext(), R.array.category, android.R.layout.simple_spinner_item
