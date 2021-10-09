@@ -14,7 +14,7 @@ abstract class BaseFragment<Binding : ViewBinding>( private val inflate: (Layout
     private var _binding: Binding? = null
      val binding get() = _binding!!
 
-    abstract val viewModel: ViewModel
+//    abstract val viewModel: ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -3,12 +3,12 @@ package com.example.quizapp.ui.fragments.quiz
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.core.ui.base.BaseViewModel
+import com.example.quizapp.App
 import com.example.quizapp.model.QuizResponse
 import com.example.quizapp.ui.repository.Repository
 import com.example.youtubeapi.core.network.Resource
 
-class MainViewModel(private val repository: Repository) : BaseViewModel() {
+class MainViewModel() : ViewModel() {
 
     fun getAllQuestions(
         amount: Int,
@@ -16,7 +16,7 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
         difficulty: String,
         type: String
     ): LiveData<Resource<QuizResponse>> {
-        return repository.getAllQuestions(amount, category, difficulty, type)
+        return App.repository.getAllQuestions(amount, category, difficulty, type)
     }
 
     private val _sliderAmount = MutableLiveData<Int>()
@@ -36,6 +36,5 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
     fun setSpinnerDifficulty(difficulty: String){
         _spinnerDifficulty.value = difficulty
     }
-
 
 }

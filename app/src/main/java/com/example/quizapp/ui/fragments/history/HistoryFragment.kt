@@ -7,7 +7,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {
 
-    override val viewModel: MainViewModel by viewModel()
+  //  override val viewModel: MainViewModel by viewModel()
 
 
     override fun setupLiveData() {
