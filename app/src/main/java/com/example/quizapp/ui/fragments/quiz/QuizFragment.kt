@@ -5,27 +5,19 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
 import com.example.quizapp.core.ui.BaseFragment
 import com.example.quizapp.databinding.FragmentQuizBinding
-import com.example.youtubeapi.core.network.Status
 import com.google.android.material.slider.Slider
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuizFragment : BaseFragment<FragmentQuizBinding>(FragmentQuizBinding::inflate),
     AdapterView.OnItemSelectedListener {
 
-    private val viewModel: MainViewModel by activityViewModels()
-
-   // private lateinit var viewModel: MainViewModel
-
     private var category: Int = 0
     private var amount: Int = 0
     private var difficulty: String = ""
+    private val bundle = Bundle()
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
@@ -45,14 +37,13 @@ class QuizFragment : BaseFragment<FragmentQuizBinding>(FragmentQuizBinding::infl
                 11 -> category = 27
             }
 
-            viewModel.setSpinnerCategory(category)
+            bundle.putInt("int",category)
 
             Log.e("TAG", "onItemSelected: $category" )
 
         } else if (parent?.id == R.id.spinner_2) {
             difficulty = binding.spinner2.selectedItem.toString()
-            viewModel.setSpinnerDifficulty(difficulty)
-
+            bundle.putString("str",difficulty)
         }
 
     }
@@ -61,7 +52,6 @@ class QuizFragment : BaseFragment<FragmentQuizBinding>(FragmentQuizBinding::infl
 
     override fun setupLiveData() {
 
-       // viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
     }
 
     override fun setupUI() {
@@ -88,8 +78,7 @@ class QuizFragment : BaseFragment<FragmentQuizBinding>(FragmentQuizBinding::infl
             override fun onStopTrackingTouch(slider: Slider) {
 
                 amount = slider.value.toInt()
-                viewModel.setSliderAmount(amount)
-                Log.e("TAG", "onStopTrackingTouch: $amount", )
+                bundle.putInt("amo",amount)
 
             }
 
@@ -97,7 +86,7 @@ class QuizFragment : BaseFragment<FragmentQuizBinding>(FragmentQuizBinding::infl
 
         binding.btnStart.setOnClickListener {
 
-            findNavController().navigate(R.id.action_quizFragment_to_gameFragment)
+            findNavController().navigate(R.id.action_quizFragment_to_gameFragment,bundle)
 
         }
 

@@ -1,6 +1,6 @@
 package com.example.quizapp.di
 
-//val koinModules = listOf(
-//    viewModules,
-//    repoModules
-//)
+val koinModules = listOf(
+    viewModules,
+    repoModules
+)

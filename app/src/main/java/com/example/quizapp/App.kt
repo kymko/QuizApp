@@ -1,22 +1,19 @@
 package com.example.quizapp
 
 import android.app.Application
+import com.example.quizapp.di.koinModules
 import com.example.quizapp.ui.repository.Repository
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class App : Application() {
-
-    companion object{
-        val repository = Repository()
-
-    }
 
     override fun onCreate() {
         super.onCreate()
 
-//        startKoin {
-//
-//            androidContext(this@App)
-//            modules(koinModules)
-//        }
+        startKoin {
+            androidContext(this@App)
+            modules(koinModules)
+        }
     }
 }

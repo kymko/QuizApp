@@ -3,17 +3,15 @@ package com.example.quizapp.ui.fragments.game
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import com.example.quizapp.core.ui.BaseFragment
 import com.example.quizapp.databinding.FragmentGameBinding
 import com.example.quizapp.ui.fragments.quiz.MainViewModel
 import com.example.youtubeapi.core.network.Status
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::inflate) {
 
-    val viewModel: MainViewModel by activityViewModels()
-
-    //private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModel()
 
     private var category: Int = 0
     private var amount: Int = 0
@@ -33,29 +31,21 @@ class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::infl
 
     override fun setupLiveData() {
 
-//        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        category = arguments?.getInt("int")!!
+        difficulty = arguments?.getString("str").toString()
+        amount = arguments?.getInt("amo")!!
 
-            viewModel.sliderAmount.observe(viewLifecycleOwner, {
-                amount = it.toInt()
-                Log.d("tag", "amount: $it")
-            })
-
-
-        viewModel.spinnerCategory.observe(viewLifecycleOwner, {
-            category = it.toInt()
-            Log.d("tag", "category: $it")
-        })
-
-        viewModel.spinnerDifficulty.observe(viewLifecycleOwner, {
-            difficulty = it.toString()
-            Log.d("tag", "difficulty: $it")
-        })
+        Log.d("tag", "int: $amount")
+        Log.d("tag", "dif: $category")
+        Log.d("tag", "amo: $difficulty")
 
 
-        viewModel.getAllQuestions(amount, category,difficulty, "")
+        viewModel.getAllQuestions(amount, category, difficulty, "multiple")
             .observe(viewLifecycleOwner, {
 
-        Log.d("tag","log: $amount,$category,$difficulty")
+                Log.d("tag", "log: $amount,$category,$difficulty")
+
+//                list = it.data?.results?.get(0)?.incorrect_answers
 
                 questions[0] = it.data?.results?.get(0)?.question.toString()
                 questions[1] = it.data?.results?.get(1)?.question.toString()
@@ -147,7 +137,8 @@ class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::infl
 
                         binding.progressBar.visibility = View.GONE
 
-                        binding.tvHeaderCategory.text = it.data?.results?.get(0)?.category.toString()
+                        binding.tvHeaderCategory.text =
+                            it.data?.results?.get(0)?.category.toString()
 
                         binding.tvQuestion.text = it.data?.results?.get(0)?.question.toString()
                         binding.btnFirst.text =
@@ -269,13 +260,13 @@ class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::infl
                 }
 
             })
-
     }
-        override fun setupUI() {
 
-            binding.btnSkip.setOnClickListener{
+    override fun setupUI() {
 
-            }
+        binding.btnSkip.setOnClickListener {
+
         }
-
     }
+
+}
