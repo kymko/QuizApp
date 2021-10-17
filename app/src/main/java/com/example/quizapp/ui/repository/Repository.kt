@@ -2,13 +2,15 @@ package com.example.quizapp.ui.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.example.quizapp.local.ResultDataBase
+import com.example.quizapp.local.model.RoomResult
 import com.example.quizapp.model.QuizResponse
 import com.example.quizapp.remote.QuizApi
 import com.example.quizapp.remote.RetrofitClient
 import com.example.youtubeapi.core.network.Resource
 import kotlinx.coroutines.Dispatchers
 
-class Repository {
+class Repository(val db:ResultDataBase) {
 
     private var quizApi: QuizApi = RetrofitClient.create()
 
@@ -25,5 +27,10 @@ class Repository {
                 Resource.error(response.message(), response.body(), response.code())
         )
     }
+    suspend fun upsert(roomResult: RoomResult) = db.getResultDao().upsert(roomResult)
+
+    fun getSavedQuestions() = db.getResultDao().getAllResults()
+
+    suspend fun deleteResults(roomResult: RoomResult) = db.getResultDao().deleteResult(roomResult)
 
 }

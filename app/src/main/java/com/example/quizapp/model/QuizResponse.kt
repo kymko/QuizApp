@@ -11,5 +11,13 @@ data class QuizResponse(
         val incorrect_answers: ArrayList<String>,
         val question: String, // In the Animal Crossing series, which flower is erroneously called the &quot;Jacob&#039;s Ladder&quot;?
         val type: String // multiple
-    )
+    ) {
+        val incorrectAnswerWithCorrectAnswer: ArrayList<String>
+            get() {
+                incorrectAnswerWithCorrectAnswer.addAll(incorrect_answers)
+                incorrectAnswerWithCorrectAnswer.add(correct_answer)
+                incorrectAnswerWithCorrectAnswer.shuffle()
+                return incorrectAnswerWithCorrectAnswer
+            }
+    }
 }

@@ -37,7 +37,7 @@
                 android:layout_below="@+id/tv_category_result"
                 android:layout_marginTop="12sp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Correct answers: 8/10"
+                android:text="@string/correct_answers_room"
                 android:textColor="#801F2041"
                 android:textSize="12sp" />
 
@@ -48,7 +48,7 @@
                 android:layout_below="@+id/tv_correct_result"
                 android:layout_marginTop="10sp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Difficulty: Easy"
+                android:text="@string/difficulty_room"
                 android:textColor="#801F2041"
                 android:textSize="12sp" />
 

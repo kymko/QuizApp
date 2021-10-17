@@ -1,13 +1,19 @@
 package com.example.quizapp.ui.fragments.game
 
-import android.util.Log
+import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.quizapp.R
 import com.example.quizapp.core.ui.BaseFragment
 import com.example.quizapp.databinding.FragmentGameBinding
+import com.example.quizapp.model.QuizResponse
+import com.example.quizapp.ui.fragments.game.adapter.QuizAdapter
 import com.example.quizapp.ui.fragments.quiz.MainViewModel
 import com.example.youtubeapi.core.network.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import android.widget.Toast.makeText as makeText1
 
 class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::inflate) {
 
@@ -16,18 +22,9 @@ class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::infl
     private var category: Int = 0
     private var amount: Int = 0
     private var difficulty: String = ""
-
-    private var incorrectAnswers1 = arrayOf("", "", "")
-    private var incorrectAnswers2 = arrayOf("", "", "")
-    private var incorrectAnswers3 = arrayOf("", "", "")
-    private var incorrectAnswers4 = arrayOf("", "", "")
-    private var incorrectAnswers5 = arrayOf("", "", "")
-    private var incorrectAnswers6 = arrayOf("", "", "")
-    private var incorrectAnswers7 = arrayOf("", "", "")
-    private var incorrectAnswers8 = arrayOf("", "", "")
-    private var incorrectAnswers9 = arrayOf("", "", "")
-    private var correctAnswers = arrayOf("", "", "", "", "", "", "", "", "", "")
-    private var questions = arrayOf("", "", "", "", "", "", "", "", "", "")
+    private var equalPosition: Int = 0
+    private var correctQuestions: Int = 0
+    private val quizAdapter: QuizAdapter by lazy { QuizAdapter(this::clickListener) }
 
     override fun setupLiveData() {
 
@@ -35,237 +32,65 @@ class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::infl
         difficulty = arguments?.getString("str").toString()
         amount = arguments?.getInt("amo")!!
 
-        Log.d("tag", "int: $amount")
-        Log.d("tag", "dif: $category")
-        Log.d("tag", "amo: $difficulty")
-
-
         viewModel.getAllQuestions(amount, category, difficulty, "multiple")
             .observe(viewLifecycleOwner, {
-
-                Log.d("tag", "log: $amount,$category,$difficulty")
-
-//                list = it.data?.results?.get(0)?.incorrect_answers
-
-                questions[0] = it.data?.results?.get(0)?.question.toString()
-                questions[1] = it.data?.results?.get(1)?.question.toString()
-                questions[2] = it.data?.results?.get(2)?.question.toString()
-                questions[3] = it.data?.results?.get(3)?.question.toString()
-                questions[4] = it.data?.results?.get(4)?.question.toString()
-                questions[5] = it.data?.results?.get(5)?.question.toString()
-                questions[6] = it.data?.results?.get(6)?.question.toString()
-                questions[7] = it.data?.results?.get(7)?.question.toString()
-                questions[8] = it.data?.results?.get(8)?.question.toString()
-                questions[9] = it.data?.results?.get(9)?.question.toString()
-
-                correctAnswers[0] = it.data?.results?.get(0)?.correct_answer.toString()
-                correctAnswers[1] = it.data?.results?.get(1)?.correct_answer.toString()
-                correctAnswers[2] = it.data?.results?.get(2)?.correct_answer.toString()
-                correctAnswers[3] = it.data?.results?.get(3)?.correct_answer.toString()
-                correctAnswers[4] = it.data?.results?.get(4)?.correct_answer.toString()
-                correctAnswers[5] = it.data?.results?.get(5)?.correct_answer.toString()
-                correctAnswers[6] = it.data?.results?.get(6)?.correct_answer.toString()
-                correctAnswers[7] = it.data?.results?.get(7)?.correct_answer.toString()
-                correctAnswers[8] = it.data?.results?.get(8)?.correct_answer.toString()
-                correctAnswers[9] = it.data?.results?.get(9)?.correct_answer.toString()
-
-                incorrectAnswers1[0] =
-                    it.data?.results?.get(1)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers1[1] =
-                    it.data?.results?.get(1)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers1[2] =
-                    it.data?.results?.get(1)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers2[0] =
-                    it.data?.results?.get(2)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers2[1] =
-                    it.data?.results?.get(2)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers2[2] =
-                    it.data?.results?.get(2)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers3[0] =
-                    it.data?.results?.get(3)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers3[1] =
-                    it.data?.results?.get(3)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers3[2] =
-                    it.data?.results?.get(3)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers4[0] =
-                    it.data?.results?.get(4)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers4[1] =
-                    it.data?.results?.get(4)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers4[2] =
-                    it.data?.results?.get(4)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers5[0] =
-                    it.data?.results?.get(5)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers5[1] =
-                    it.data?.results?.get(5)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers5[2] =
-                    it.data?.results?.get(5)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers6[0] =
-                    it.data?.results?.get(6)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers6[1] =
-                    it.data?.results?.get(6)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers6[2] =
-                    it.data?.results?.get(6)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers7[0] =
-                    it.data?.results?.get(7)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers7[1] =
-                    it.data?.results?.get(7)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers7[2] =
-                    it.data?.results?.get(7)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers8[0] =
-                    it.data?.results?.get(8)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers8[1] =
-                    it.data?.results?.get(8)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers8[2] =
-                    it.data?.results?.get(8)?.incorrect_answers?.get(2).toString()
-
-                incorrectAnswers9[0] =
-                    it.data?.results?.get(9)?.incorrect_answers?.get(0).toString()
-                incorrectAnswers9[1] =
-                    it.data?.results?.get(9)?.incorrect_answers?.get(1).toString()
-                incorrectAnswers9[2] =
-                    it.data?.results?.get(9)?.incorrect_answers?.get(2).toString()
-
                 when (it.status) {
                     Status.SUCCESS -> {
-
+                        if (it.data?.results?.size != null) {
+                            equalPosition = it.data.results.size
+                        }
                         binding.progressBar.visibility = View.GONE
-
                         binding.tvHeaderCategory.text =
                             it.data?.results?.get(0)?.category.toString()
-
-                        binding.tvQuestion.text = it.data?.results?.get(0)?.question.toString()
-                        binding.btnFirst.text =
-                            it.data?.results?.get(0)?.correct_answer.toString()
-                        binding.btnSecond.text =
-                            it.data?.results?.get(0)?.incorrect_answers?.get(0).toString()
-                        binding.btnThird.text =
-                            it.data?.results?.get(0)?.incorrect_answers?.get(1).toString()
-                        binding.btnFourth.text =
-                            it.data?.results?.get(0)?.incorrect_answers?.get(2).toString()
-
+                        quizAdapter.addQuestions(it.data?.results as ArrayList<QuizResponse.Result>)
                     }
                     Status.ERROR -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
+                        makeText1(
                             requireContext(),
                             it.message.toString(),
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                     }
                     Status.LOADING -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
                 }
 
-                binding.btnFirst.setOnClickListener {
-
-                    if (binding.btnFirst.text == correctAnswers[0]) {
-                        binding.sliderCount.value = (2).toFloat()
-                        binding.tvQuestion.text = questions[1]
-                        binding.btnSecond.text = correctAnswers[1]
-                        binding.btnFirst.text = incorrectAnswers1[0]
-                        binding.btnThird.text = incorrectAnswers1[1]
-                        binding.btnFourth.text = incorrectAnswers1[2]
-                    }
-
-                    if (binding.btnFirst.text == correctAnswers[4]) {
-                        binding.sliderCount.value = (6).toFloat()
-                        binding.tvQuestion.text = questions[5]
-                        binding.btnThird.text = correctAnswers[5]
-                        binding.btnFirst.text = incorrectAnswers5[0]
-                        binding.btnSecond.text = incorrectAnswers5[1]
-                        binding.btnFourth.text = incorrectAnswers5[2]
-                    }
-                }
-                binding.btnSecond.setOnClickListener {
-                    if (binding.btnSecond.text == correctAnswers[1]) {
-                        binding.sliderCount.value = (3).toFloat()
-                        binding.tvQuestion.text = questions[2]
-                        binding.btnFourth.text = correctAnswers[2]
-                        binding.btnFirst.text = incorrectAnswers2[0]
-                        binding.btnThird.text = incorrectAnswers2[1]
-                        binding.btnSecond.text = incorrectAnswers2[2]
-                    }
-                    if (binding.btnSecond.text == correctAnswers[6]) {
-                        binding.sliderCount.value = (8).toFloat()
-                        binding.tvQuestion.text = questions[7]
-                        binding.btnFourth.text = correctAnswers[7]
-                        binding.btnFirst.text = incorrectAnswers7[0]
-                        binding.btnThird.text = incorrectAnswers7[1]
-                        binding.btnSecond.text = incorrectAnswers7[2]
-                    }
-                    if (binding.btnSecond.text == correctAnswers[9]) {
-                        Toast.makeText(requireContext(), "finish", Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-
-                binding.btnThird.setOnClickListener {
-                    if (binding.btnThird.text == correctAnswers[3]) {
-                        binding.sliderCount.value = (5).toFloat()
-                        binding.tvQuestion.text = questions[4]
-                        binding.btnFirst.text = correctAnswers[4]
-                        binding.btnThird.text = incorrectAnswers4[0]
-                        binding.btnFourth.text = incorrectAnswers4[1]
-                        binding.btnSecond.text = incorrectAnswers4[2]
-                    }
-
-                    if (binding.btnThird.text == correctAnswers[5]) {
-                        binding.sliderCount.value = (7).toFloat()
-                        binding.tvQuestion.text = questions[6]
-                        binding.btnSecond.text = correctAnswers[6]
-                        binding.btnThird.text = incorrectAnswers6[0]
-                        binding.btnFourth.text = incorrectAnswers6[1]
-                        binding.btnFirst.text = incorrectAnswers6[2]
-                    }
-
-                    if (binding.btnThird.text == correctAnswers[8]) {
-                        binding.sliderCount.value = (10).toFloat()
-                        binding.tvQuestion.text = questions[9]
-                        binding.btnSecond.text = correctAnswers[9]
-                        binding.btnThird.text = incorrectAnswers9[0]
-                        binding.btnFourth.text = incorrectAnswers9[1]
-                        binding.btnFirst.text = incorrectAnswers9[2]
-                    }
-
-                }
-
-                binding.btnFourth.setOnClickListener {
-                    if (binding.btnFourth.text == correctAnswers[2]) {
-                        binding.sliderCount.value = (4).toFloat()
-                        binding.tvQuestion.text = questions[3]
-                        binding.btnThird.text = correctAnswers[3]
-                        binding.btnFirst.text = incorrectAnswers3[0]
-                        binding.btnFourth.text = incorrectAnswers3[1]
-                        binding.btnSecond.text = incorrectAnswers3[2]
-
-                    }
-                    if (binding.btnFourth.text == correctAnswers[7]) {
-                        binding.sliderCount.value = (9).toFloat()
-                        binding.tvQuestion.text = questions[8]
-                        binding.btnThird.text = correctAnswers[8]
-                        binding.btnFirst.text = incorrectAnswers8[0]
-                        binding.btnFourth.text = incorrectAnswers8[1]
-                        binding.btnSecond.text = incorrectAnswers8[2]
-
-                    }
-                }
-
             })
+
+        binding.recyclerView.isNestedScrollingEnabled = false;
+        binding.recyclerView.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = quizAdapter
+        }
+        binding.recyclerView.setOnTouchListener { v, event -> true }
+
+    }
+
+    private fun clickListener(item: QuizResponse.Result, position: Int, isCorrect: Boolean) {
+
+        binding.recyclerView.smoothScrollToPosition(position + 1)
+        if (isCorrect) {
+            correctQuestions++
+            Toast.makeText(requireContext(), "correct", Toast.LENGTH_SHORT).show()
+        }
+        if (equalPosition == position + 1) {
+            Toast.makeText(requireContext(), "finish", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putInt("correct", correctQuestions)
+            bundle.putInt("amount", amount)
+            bundle.putString("difficulty", difficulty)
+            findNavController().navigate(R.id.resultFragment, bundle)
+        }
+
     }
 
     override fun setupUI() {
 
-        binding.btnSkip.setOnClickListener {
-
+        binding.ivBack.setOnClickListener {
+            findNavController().navigate(R.id.quizFragment)
         }
     }
 
